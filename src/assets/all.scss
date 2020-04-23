@@ -1,0 +1,49 @@
+@import "~bootstrap/scss/functions";
+@import "./helpers/variables";
+@import "~bootstrap/scss/bootstrap";
+
+// 共用屬性
+* {
+    // font-family: "微軟正黑體", "Microsoft JhengHei";
+    font-family: "Open Sans",Arial,"Hiragino Sans GB","Microsoft YaHei","微软雅黑","STHeiti","WenQuanYi Micro Hei",SimSun,sans-serif;
+}
+//google font導入字體 用於英文
+.Kalam-font{
+    font-family: 'Kalam';
+}
+//google font size
+.Kalam-size{
+    font-size: 2rem;
+    letter-spacing: .3rem;
+}
+.Kalam-size4{
+    font-size: 4rem;
+    letter-spacing: .3rem;
+}
+//背景定位
+.box {
+    height: 400px;
+}
+.bg-cover {
+    background-size: cover;
+    background-position: center center;
+}
+//背景視差
+.bg-fixed {
+    background-attachment: fixed;
+}
+//flex 用於父層 定位子元素左右上下置中
+.flex-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+//文字上下置中
+.line-hight{
+    line-height: 100%;
+}
+
+// **** admin ****
+.list-active{
+    color:#0056b3;
+}
