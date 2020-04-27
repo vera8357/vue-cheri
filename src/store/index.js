@@ -11,7 +11,8 @@ export default new Vuex.Store({
     isLoading: false,
     messages: [],
     // 前台 購物車
-    shopingCart: []
+    shopingCart: [],
+    collect: []
   },
   actions: {
     //   後台 共用
@@ -39,7 +40,6 @@ export default new Vuex.Store({
     getCart (context) {
       const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`
       axios.get(url).then(res => {
-        // context.commit('SHOPINGCART', res.data.data.carts)
         context.commit('SHOPINGCART', res.data.data)
       })
     },
@@ -64,6 +64,34 @@ export default new Vuex.Store({
           context.dispatch('getCart')
         }
       })
+    },
+    collect (context) {
+      let like = localStorage.getItem('like') === null ? [] : JSON.parse(localStorage.getItem('like'))
+      context.commit('COLLECT', like)
+    },
+    updateCollect (context, { id, title }) {
+      let items = localStorage.getItem('like') === null ? [] : JSON.parse(localStorage.getItem('like'))
+      let data = false
+      items.forEach(function (ele, index) {
+        if (ele.id === id) {
+          data = index
+        }
+      })
+      if (data === false) {
+        let item = {
+          id,
+          title
+        }
+        items.push(item)
+      } else {
+        items.splice(data, 1)
+      }
+      localStorage.setItem('like', JSON.stringify(items))
+      context.dispatch('collect')
+    },
+    delAllCollect (context) {
+      localStorage.removeItem('like')
+      context.dispatch('collect')
     }
   },
   mutations: {
@@ -82,11 +110,12 @@ export default new Vuex.Store({
         state.messages.splice(i, 1)
       }
     },
-    // 前台 購物車s
+    // 前台
     SHOPINGCART (state, payload) {
-      console.log('mu', payload)
       state.shopingCart = payload
-      console.log('mu state', state.shopingCart)
+    },
+    COLLECT (state, payload) {
+      state.collect = payload
     }
   },
   modules: {

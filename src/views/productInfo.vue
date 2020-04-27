@@ -5,8 +5,12 @@
     </div>
     <div class="col-12 col-md-5 align-self-center mt-4">
       <h2 class="h4">{{productInfo.title}}</h2>
-      <div class="my-3">
-        <p>${{productInfo.price}}</p>
+      <div class="my-3 d-flex justify-content-between">
+        <span>${{productInfo.price}}</span>
+        <a href="#" @click.prevent="updateCollect(productInfo.id, productInfo.title)">
+          <i class="far fa-heart" v-if="!checkLikeStatus(productInfo.id)"></i>
+          <i class="fas fa-heart text-danger" v-if="checkLikeStatus(productInfo.id)"></i>
+        </a>
       </div>
       <div class="form-row">
         <div class="col-4 pr-0">
@@ -54,15 +58,11 @@
 export default {
   data () {
     return {
-      urlId: '',
       productInfo: {},
       qty: 1
     }
   },
   methods: {
-    getUrl () {
-      this.urlId = this.$route.params.id
-    },
     getProductInfo () {
       let vm = this
       const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/product/${vm.urlId}`
@@ -87,16 +87,43 @@ export default {
         qty
       }
       this.$store.dispatch('addToCart', cart)
+    },
+    updateCollect (id, title) {
+      this.$store.dispatch('updateCollect', { id, title })
+    },
+    checkLikeStatus (id) {
+      let vm = this
+      if (vm.collect.some(ele => ele.id === id)) {
+        return true
+      } else {
+        return false
+      }
+    }
+  },
+  computed: {
+    collect () {
+      return this.$store.state.collect
+    },
+    urlId () {
+      return this.$route.params.id
+    }
+  },
+  watch: {
+    urlId: function () {
+      this.getProductInfo()
     }
   },
   created () {
-    this.getUrl()
     this.getProductInfo()
+    this.checkLikeStatus()
   }
 }
 </script>
 
 <style lang='scss' scoped>
+a{
+  color: #000;
+}
 .input-group>.input-group-append>.btn,.input-group>.input-group-prepend>.btn,.btn{
   border-radius: 0;
 }

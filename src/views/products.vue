@@ -46,8 +46,8 @@
           </div>
           <div class="d-flex m-2 px-1">
             <div>{{item.title}}</div>
-            <div class="ml-auto">
-              <a href="#" @click.prevent="updateLike(item.id)" >
+            <div class="ml-auto" v-if="item.is_enabled == 1">
+              <a href="#" @click.prevent="updateCollect(item.id,item.title)" >
                 <i class="far fa-heart" v-if="!checkLikeStatus(item.id)"></i>
                 <i class="fas fa-heart text-danger" v-if="checkLikeStatus(item.id)"></i>
               </a>
@@ -99,26 +99,19 @@ export default {
       }
       this.$store.dispatch('addToCart', cart)
     },
-    updateLike (id) {
-      let vm = this
-      if (vm.like.some(ele => ele === id)) {
-        let num = vm.like.indexOf(id)
-        vm.like.splice(num, 1)
-      } else {
-        vm.like.push(id)
-      }
-      localStorage.setItem('like', JSON.stringify(vm.like))
+    updateCollect (id, title) {
+      this.$store.dispatch('updateCollect', { id, title })
     },
     checkLikeStatus (id) {
       let vm = this
-      if (vm.like.some(ele => ele === id)) {
+      if (vm.collect.some(ele => ele.id === id)) {
         return true
       } else {
         return false
       }
     },
     goSingProduct (id) {
-      this.$router.push(`/product/${id}`)
+      this.$router.push(`/clince/product/${id}`)
     }
   },
   components: {
@@ -133,6 +126,9 @@ export default {
       return vm.allProducts.filter(function (item) {
         return item.category.match(vm.category)
       })
+    },
+    collect () {
+      return this.$store.state.collect
     }
   },
   created () {

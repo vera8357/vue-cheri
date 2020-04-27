@@ -22,11 +22,11 @@ export default new VueRouter({
   routes: [
     {
       path: '*',
-      redirect: '/home'
+      redirect: '/clince/home'
     },
     {
       name: 'Index',
-      path: '/',
+      path: '/clince',
       component: Index,
       children: [
         {

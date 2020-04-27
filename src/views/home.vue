@@ -45,7 +45,7 @@
         >Lorem ismallsum, dolor amet consectetur adismallisicing elit. Nam natus et eveniet 。</small>
       </div>
       <div class="col-12 col-md-4 flex-center mt-3 mt-md-0">
-        <a href="#/discount" class="btn btn-sm btn-info coupont-btn text-white">立即領取</a>
+        <a href="#/clince/discount" class="btn btn-sm btn-info coupont-btn text-white">立即領取</a>
       </div>
     </div>
 
@@ -60,7 +60,7 @@
       <div class="row">
         <div class="col-6 col-md-4 p-0">
           <div class="product-list">
-            <a href="#/product/-M44cBiIqLIVvLHDAYek">
+            <a href="#/clince/product/-M44cBiIqLIVvLHDAYek">
               <img src='../assets/images/b-3.png' alt />
               <div class="item-hover-cover flex-center">
                 <p>14K金鑽石三葉草手鏈</p>
@@ -70,7 +70,7 @@
         </div>
         <div class="col-6 col-md-4 p-0">
           <div class="product-list">
-            <a href="#/product/-M44ZXAY_kUmmDfmCBRq">
+            <a href="#/clince/product/-M44ZXAY_kUmmDfmCBRq">
               <img src="../assets/images/r-1.png" alt />
               <div class="item-hover-cover flex-center">
                 <p>14K金甜粉碧璽復古戒指</p>
@@ -80,7 +80,7 @@
         </div>
         <div class="col-6 col-md-4 p-0">
           <div class="product-list">
-            <a href="#/product/-M44XspwGQ3DH63JbSB2">
+            <a href="#/clince/product/-M44XspwGQ3DH63JbSB2">
               <img src="../assets/images/n-1.png" alt />
               <div class="item-hover-cover flex-center">
                 <p>18K金簡約微笑排珍珠項鍊</p>
@@ -90,7 +90,7 @@
         </div>
         <div class="col-6 col-md-4 p-0">
           <div class="product-list">
-            <a href="#/product/-M44_nXVHEj_T3tTl8ep">
+            <a href="#/clince/product/-M44_nXVHEj_T3tTl8ep">
               <img src="../assets/images/e-1.png" alt />
               <div class="item-hover-cover flex-center">
                 <p>14K特色鑲嵌紅寶石耳環</p>
@@ -100,7 +100,7 @@
         </div>
         <div class="col-6 col-md-4 p-0">
           <div class="product-list">
-            <a href="#/product/-M44bnNToEuGjdrkAi7O">
+            <a href="#/clince/product/-M44bnNToEuGjdrkAi7O">
               <img src="../assets/images/b-1.png" alt />
               <div class="item-hover-cover flex-center">
                 <p>14K金菱形祖母綠雙層手鍊</p>
@@ -110,7 +110,7 @@
         </div>
         <div class="col-6 col-md-4 p-0">
           <div class="product-list">
-            <a href="#/product/-M44YwKWLyufsKoan0gh">
+            <a href="#/clince/product/-M44YwKWLyufsKoan0gh">
               <img src="../assets/images/n-5.png" alt />
               <div class="item-hover-cover flex-center">
                 <p>14K金絕美花紋歐泊項鍊</p>
@@ -171,7 +171,7 @@ h4{
 }
 
 .joinus {
-  padding: 8rem;
+  padding: 4rem;
   background-image: url("../assets/images/joinbg.png");
 }
 .joinus-content {

@@ -65,7 +65,7 @@ export default {
       const url = `${process.env.APIPATH}/logout`
       this.$http.post(url).then(res => {
         if (res.data.success) {
-          this.$router.push('/')
+          this.$router.push('/clince/home')
         }
       })
     },

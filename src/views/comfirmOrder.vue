@@ -26,7 +26,7 @@
     <table class="table">
       <tbody>
         <tr>
-          <th width="100">Email</th>
+          <th width="130">Email</th>
           <td>{{ order.user.email }}</td>
         </tr>
         <tr>

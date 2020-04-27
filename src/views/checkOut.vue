@@ -8,7 +8,7 @@
       <div v-if="shopingCart.total == 0">
         <p class="h4 text-center">購物車內無商品</p>
         <p class="text-center">
-          <router-link to="/">
+          <router-link to="/clince/home">
             <i class="fas fa-long-arrow-alt-left"></i>
             回到<span class="Kalam-font">cheri</span>購物
           </router-link>
@@ -33,16 +33,14 @@
             <td class="text-center"><i class="fas fa-times" @click="delProduct(item)"></i></td>
           </tr>
           <tr>
-            <td colspan="3" class="text-right">總金額</td>
+            <td></td>
+            <td></td>
+            <td>總金額</td>
             <td class="text-center">{{shopingCart.total}}</td>
-          </tr>
-          <tr v-if="shopingCart.total !== shopingCart.final_total">
-            <td colspan="3" class="text-right">折扣價</td>
-            <td  class="text-center text-info">{{shopingCart.final_total}}</td>
           </tr>
           <tr>
             <td>使用折價卷</td>
-            <td colspan="2">
+            <td colspan="3">
               <div class="input-group input-group-sm">
                 <input type="text" placeholder="請輸入折價卷號碼" class="form-control" v-model="coupon_code">
                 <div class="input-group-append">
@@ -50,7 +48,12 @@
                 </div>
               </div>
             </td>
+          </tr>
+          <tr v-if="shopingCart.total !== shopingCart.final_total" class="text-info">
             <td></td>
+            <td></td>
+            <td>折扣價</td>
+            <td  class="text-center">{{shopingCart.final_total}}</td>
           </tr>
         </tbody>
       </table>
@@ -128,7 +131,7 @@ export default {
         if (result) {
           this.$http.post(url, { data: vm.form }).then(res => {
             if (res.data.success) {
-              vm.$router.push(`/comfirm_order/${res.data.orderId}`)
+              vm.$router.push(`/clince/comfirm_order/${res.data.orderId}`)
               let message = '訂單已建立'
               let status = 'success'
               vm.$store.dispatch('updateMessage', { message, status })

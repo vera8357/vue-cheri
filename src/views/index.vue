@@ -5,7 +5,7 @@
       <div class="container py-2" style="position: relative;">
         <div class="navLogo">
           <h1>
-            <router-link class="Kalam-font" to="/home">Cheri</router-link>
+            <router-link class="Kalam-font" to="/clince/home">Cheri</router-link>
           </h1>
         </div>
         <button
@@ -19,23 +19,23 @@
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse ml-5 text-center" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse ml-5" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <router-link class="nav-link" to="/productList">商品列表</router-link>
+              <router-link class="nav-link" to="/clince/productList">商品列表</router-link>
             </li>
           </ul>
           <ul class="navbar-nav mr-auto lg-right">
             <li class="nav-item badge-wrap">
-              <a class="nav-link" href="#">
+              <a class="nav-link" href="#" @click.prevent="openCollectModal">
                 <i class="far fa-heart"></i>
-                <span class="badge badge-pill badge-danger">{{likeNum}}</span>
+                <span class="badge badge-pill badge-danger">{{collect.length}}</span>
               </a>
             </li>
             <li class="nav-item badge-wrap">
               <a class="nav-link" href="#" @click.prevent="openCartModal">
                 <i class="fas fa-shopping-cart"></i>
-                <span class="badge badge-pill badge-danger">{{shopingCart.carts.length}}</span>
+                <span class="badge badge-pill badge-danger" v-if="shopingCart.carts">{{shopingCart.carts.length}}</span>
               </a>
             </li>
             <li class="nav-item">
@@ -86,7 +86,7 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="bg-light text-center p-5" v-if="shopingCart.carts.length == 0 ">
+          <div class="bg-light text-center p-5" v-if="Number(shopingCart.carts) === 0 ">
             <p>目前尚未選購商品!!</p>
           </div>
           <div v-else>
@@ -110,13 +110,54 @@
                 </tbody>
               </table>
             </div>
-            <div class="modal-footer" v-if="shopingCart.carts.length !== 0">
+            <div class="modal-footer">
               <button type="button" class="btn btn-info w-100" @click="checkOut">結帳去</button>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <!-- 收藏跳窗 -->
+        <div
+      class="modal fade"
+      id="collectModal"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-center w-100">我的收藏</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="bg-light text-center p-5" v-if="Number(collect) === 0">
+            <p>目前無關注商品!!</p>
+          </div>
+          <div v-else>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">品名</th>
+                    <th scope="col" class="text-center">刪除</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="item in collect" :key="item.id">
+                    <th><a href="#" @click.prevent="collectProduct(item.id)">{{item.title}}</a></th>
+                    <td class="text-center"><i class="fas fa-times"  @click.prevent="updateCollect(item.id,item.title)"></i></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-info w-100" @click="delAllCollect">刪除全部</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -124,11 +165,6 @@
 import $ from 'jquery'
 import errorMessage from '@/components/errorMessage'
 export default {
-  data () {
-    return {
-      like: []
-    }
-  },
   methods: {
     getCart () {
       this.$store.dispatch('getCart')
@@ -142,12 +178,30 @@ export default {
     },
     checkOut () {
       $('#cartModal').modal('hide')
-      this.$router.push('/checkOut')
+      this.$router.push('/clince/checkOut')
+    },
+    getCollect () {
+      this.$store.dispatch('collect')
+    },
+    updateCollect (id, title) {
+      $('#collectModal').modal('hide')
+      this.$store.dispatch('updateCollect', { id, title })
+    },
+    openCollectModal () {
+      $('#collectModal').modal('show')
+    },
+    delAllCollect () {
+      $('#collectModal').modal('hide')
+      this.$store.dispatch('delAllCollect')
+    },
+    collectProduct (id) {
+      $('#collectModal').modal('hide')
+      this.$router.push(`/clince/product/${id}`)
     }
   },
   computed: {
-    likeNum () {
-      return this.like.length
+    collect () {
+      return this.$store.state.collect
     },
     shopingCart () {
       return this.$store.state.shopingCart
@@ -159,11 +213,7 @@ export default {
   created () {
     let vm = this
     vm.getCart()
-    if (localStorage.getItem('like')) {
-      vm.like = JSON.parse(localStorage.getItem('like'))
-    } else {
-      vm.like = []
-    }
+    vm.getCollect()
   }
 }
 </script>
@@ -173,6 +223,11 @@ a {
   color: #000;
   text-decoration: none;
 }
+a:hover{
+  color: #000;
+  text-decoration: none;
+}
+
 .fa-shopping-cart,.fa-heart {
   font-size: 1.3rem;
 }
@@ -182,7 +237,7 @@ a {
 .badge {
   position: absolute;
   bottom: 9px;
-  right: 44%;
+  left: 4%;
 }
 .footer::before,.footer::after{
   content: '';
@@ -206,7 +261,7 @@ a {
 }
 @media (min-width: 768px) {
   .badge {
-    right: 46%;
+    left:2%;
   }
 }
 
@@ -217,7 +272,7 @@ a {
     right: 0px;
   }
   .badge {
-    right: -2px;
+    left: 3px;
   }
 }
 </style>
