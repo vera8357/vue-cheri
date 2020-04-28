@@ -1,7 +1,7 @@
 # Cheri 電商網頁
 
-![](https://vera8357.github.io/vue-cheri/dist/static/img/dome/home-1.png)
-
+![](https://vera8357.github.io/vue-cheri/dist/static/img/dome/home-1.PNG)
+<!-- https://vera8357.github.io/vue-cheri/dist/static/img/dome/home-1.PNG -->
 ## Demo
 https://vera8357.github.io/vue-cheri/dist/#/clince/home
 
@@ -40,3 +40,23 @@ https://vera8357.github.io/vue-cheri/dist/#/clince/home
 + [VeeValidate](https://baianat.github.io/vee-validate/)
 
 ## 內容介紹
+- 我的收藏 運用localStorage
+![](https://vera8357.github.io/vue-cheri/dist/static/img/dome/home-2.PNG)
+
+- 購物車 利用vuex達到同步更新
+![](https://vera8357.github.io/vue-cheri/dist/static/img/dome/home-3.PNG)
+
+- 商品分類 filter 將商品過濾
+![](https://vera8357.github.io/vue-cheri/dist/static/img/dome/home-4.PNG)
+
+- 商品詳細內容 router代入唯一ID
+![](https://vera8357.github.io/vue-cheri/dist/static/img/dome/home-5.PNG)
+
+- 結帳資訊
+![](https://vera8357.github.io/vue-cheri/dist/static/img/dome/home-6.PNG)
+
+- 表單驗證
+![](https://vera8357.github.io/vue-cheri/dist/static/img/dome/home-7.PNG)
+
+- 後台管理 商品、訂單、優惠卷基礎功能
+![](https://vera8357.github.io/vue-cheri/dist/static/img/dome/home-8.PNG)
