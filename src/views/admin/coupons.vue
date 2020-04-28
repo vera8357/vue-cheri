@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="text-right">
-      <button type="button" class="btn btn-primary mb-2" @click="openCouponModel(item, false)">新增優惠卷</button>
+      <button type="button" class="btn btn-primary mb-2" @click="openCouponModel(null, false)">新增優惠卷</button>
     </div>
     <div class="table-wrap">
       <table class="table">
@@ -157,9 +157,9 @@ export default {
           message = '系統忙碌，請稍後'
           status = 'danger'
         }
+        vm.getCoupons()
       })
       $('#couponModal').modal('hide')
-      vm.getCoupons()
       vm.$store.dispatch('updateMessage', {message, status})
     },
     openDelCouponModal (item) {
